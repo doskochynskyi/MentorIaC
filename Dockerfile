@@ -1,15 +1,6 @@
-# syntax=docker/dockerfile:1
+FROM nginx
 
-FROM node:16.15.0
-ENV NODE_ENV=production
+RUN rm /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY mentor.conf /etc/nginx/conf.d
 
-WORKDIR /app
-
-COPY ["package.json", "package-lock.json*", "./"]
-
-RUN npm install --production
-
-COPY . .
-
-EXPOSE 3000
-CMD [ "node", "server.js" ]
+EXPOSE 80
